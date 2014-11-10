@@ -13,6 +13,10 @@ public class Game extends ApplicationAdapter {
 	
 	public static Content res;
 	
+	private int frames;
+	private float ftime;
+	public static int fps;
+	
 	@Override
 	public void create () {
 		
@@ -34,6 +38,16 @@ public class Game extends ApplicationAdapter {
 	public void render () {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		float dt = Gdx.graphics.getDeltaTime();
+		
+		frames++;
+		ftime += dt;
+		if(ftime >= 1) {
+			ftime = 0;
+			Game.fps = frames;
+			frames = 0;
+		}
 		
 		MyInput.update();
 		MyController.update();
