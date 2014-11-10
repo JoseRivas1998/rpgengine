@@ -29,10 +29,21 @@ public class GameStateManager {
 		fpscam = new MyCamera(Game.SIZE);
 		fpscam.translate(Game.CENTER);
 		fpscam.update();
+		fps = false;
+		setState(PLAY);
 	}
 	
 	public void setState(int newState) {
 		if(state != null) state.dispose();
+		if(newState == SPLASH) {
+			state = new PlayState(this);
+		}
+		if(newState == TITLE) {
+			state = new TitleState(this);
+		}
+		if(newState == PLAY) {
+			state = new PlayState(this);
+		}
 	}
 	
 	public void handleInput() {
@@ -47,13 +58,13 @@ public class GameStateManager {
 	public void draw(float dt) {
 		state.draw(sb, sr, dt);
 		if(fps) {
-			Gdx.graphics.setTitle("Pong | " + Game.fps + " fps");
+			Gdx.graphics.setTitle(Game.NAME + " | " + Game.fps + " fps");
 			sb.begin();
 			sb.setProjectionMatrix(fpscam.combined);
 			//TODO draw fps top left
 			sb.end();
 		} else {
-			Gdx.graphics.setTitle("Pong");
+			Gdx.graphics.setTitle(Game.NAME);
 		}
 	}
 
@@ -64,6 +75,8 @@ public class GameStateManager {
 	
 	public void dispose() {
 		state.dispose();
+		sb.dispose();
+		sr.dispose();
 	}
 	
 }

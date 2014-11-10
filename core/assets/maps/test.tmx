@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="60" height="60" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="Inside_A4" tilewidth="32" tileheight="32">
+  <image source="Inside_A4.png" width="512" height="480"/>
+ </tileset>
+ <tileset firstgid="241" name="Inside_A2" tilewidth="32" tileheight="32">
+  <image source="Inside_A2.png" width="512" height="384"/>
+ </tileset>
+ <layer name="passable" width="60" height="60">
+  <data encoding="base64" compression="zlib">
+   eJztz8EJADEMA8H03206uNe1YMNmBPvX3HPOHW5z01be2W14t+Jtx9uOtx1vO952vO142/G2423H2463HW873nb/tn/w8vLy8vLyduNtx9uOtx1vO952vO142/G24233qte6+wDeEicd
+  </data>
+ </layer>
+ <layer name="inpassable" width="60" height="60">
+  <data encoding="base64" compression="zlib">
+   eJzt28EJADEIAEFrTEeXDpKKjzwCqUBh3QXxKVOAIyJGs/kSZybfe+9e70qcnXzvvXu9XdLLTi87vez0stPLTi87vez0stPLTi87vez0stPLTi87vez0stPLTi87vez0stPLTi87vez0stPLTi+7rt5OU/H3VPVvdXbF31PVv9XZP+DtyKU=
+  </data>
+ </layer>
+</map>

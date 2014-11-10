@@ -17,6 +17,10 @@ public class Game extends ApplicationAdapter {
 	private float ftime;
 	public static int fps;
 	
+	public GameStateManager gsm;
+	
+	public static String NAME;
+	
 	@Override
 	public void create () {
 		
@@ -29,6 +33,10 @@ public class Game extends ApplicationAdapter {
 		
 		res = new Content();
 		
+		NAME = "Tiny Country Games RPG Engine";
+		
+		gsm = new GameStateManager();
+		
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 		Controllers.addListener(new MyControllerProcessor());
 		
@@ -40,6 +48,9 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		float dt = Gdx.graphics.getDeltaTime();
+		gsm.handleInput();
+		gsm.update(dt);
+		gsm.draw(dt);
 		
 		frames++;
 		ftime += dt;
@@ -57,10 +68,11 @@ public class Game extends ApplicationAdapter {
 	public void resize(int width, int height) {
 		Game.SIZE.set(width, height);
 		Game.CENTER.set(width * .5f, height * .5f);
+		gsm.resize(Game.SIZE);
 	}
 
 	@Override
 	public void dispose() {
-		
+		gsm.dispose();
 	}
 }
