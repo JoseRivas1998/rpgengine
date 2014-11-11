@@ -25,6 +25,8 @@ public class Player extends Entity {
 	private final float WALK_SPEED = 5;
 	private final float RUN_SPEED = 10;
 	
+	private boolean tleft, tright, tup, tdown;
+	
 	private Rectangle ls, rs, us, ds;
 	
 	public Player(int direction, float x, float y) {
@@ -114,17 +116,26 @@ public class Player extends Entity {
 	private void collisions(Array<Rectangle> groundB) {
 		//TODO
 		for(Rectangle r : groundB) {
-			if(ls.overlaps(r)) {
-				bounds.x = r.x + r.width + 3;
+			updateSensors(bounds);
+			tleft = ls.overlaps(r);
+			tup = us.overlaps(r);
+			tright = rs.overlaps(r);
+			tdown = ds.overlaps(r);
+			if(tleft) {
+				bounds.x = r.x + r.width;
+				continue;
 			}
-			if(rs.overlaps(r)) {
-				bounds.x = r.x - bounds.width - 3;
+			if(tright) {
+				bounds.x = r.x - bounds.width;
+				continue;
 			}
-			if(us.overlaps(r)) {
-				bounds.y = r.y - bounds.height - 3;
+			if(tup) {
+				bounds.y = r.y - bounds.height;
+				continue;
 			}
-			if(ds.overlaps(r)) {
-				bounds.y = r.y + r.height + 3;
+			if(tdown) {
+				bounds.y = r.y + r.height;
+				continue;
 			}
 		}
 	}
@@ -145,12 +156,25 @@ public class Player extends Entity {
 		float x, y;
 		x = bounds.x;
 		y = bounds.y;
-		x += vel.x;
-		y += vel.y;
+		if((vel.x < 0 && !tleft) || (vel.x > 0 && !tright)) {
+			x += vel.x;
+		}
+		if ((vel.y < 0 && !tdown) || (vel.y > 0 && !tup)){
+			y += vel.y;
+		}
 		float w, h;
 		w = bounds.width;
 		h = bounds.height;
 		bounds.set(x, y, w, h);
+		updateSensors(bounds);
+	}
+	
+	private void updateSensors(Rectangle bounds) {
+		float x, y, w, h;
+		x = bounds.x;
+		y = bounds.y;
+		w = bounds.width;
+		h = bounds.height;
 		rs.width = 4;
 		rs.height = 4;
 		ls.width = 4;
